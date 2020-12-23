@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
+
 import os
 import time
 from nba_api.stats.static import players
 from nba_api.stats.endpoints import playercareerstats
+
 active_players = players.get_active_players()
 
 # f = open('stat.txt', "w")
