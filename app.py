@@ -8,18 +8,22 @@ from nba_api.stats.endpoints import leaguegamelog
 from nba_api.stats.endpoints import boxscorematchups
 from nba_api.stats.endpoints import playergamelog
 active_players = players.get_active_players()
-f = open('playergamelog.txt', "a")
-i = 0
-for player in active_players:
-    id = player['id']
-    i +=1
-    time.sleep(2)
-    info = playergamelog.PlayerGameLog(player_id=id, season=2019)
-    x = info.player_game_log.get_data_frame()
+
+git
+
+
+# f = open('playergamelog.txt', "a")
+# i = 0
+# for player in active_players:
+#     id = player['id']
+#     i +=1
+#     time.sleep(2)
+#     info = playergamelog.PlayerGameLog(player_id=id, season=2019)
+#     x = info.player_game_log.get_data_frame()
     
-    print(i/len(active_players), str(player))
-    f.write(str(player)+"\n")
-    f.write(x.to_csv(index=False))
+#     print(i/len(active_players), str(player))
+#     f.write(str(player)+"\n")
+#     f.write(x.to_csv(index=False))
 
 
 # f = open('stat.txt', "w")
