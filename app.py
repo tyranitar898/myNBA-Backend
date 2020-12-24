@@ -7,6 +7,7 @@ import time
 import os
 import ast
 from sklearn.cluster import KMeans
+from sklearn.mixture import GaussianMixture
 import numpy as np
 from flask import Flask, request, jsonify
 import matplotlib.pyplot as plt
@@ -15,12 +16,13 @@ sns.set()
 active_players = players.get_active_players()
 
 
+
 #{"name": "FG_PCT", "index": 8}, {"name": "FG3_PCT", "index": 11},
 
 
 def generateData():
     features = [{"name": "REB", "index": 17}, {
-        "name": "AST", "index": 18}, {"name": "STL", "index": 19}, {"name": "PTS", "index": 23}]
+        "name": "AST", "index": 18}, {"name": "STL", "index": 19},{"name": "BLK", "index": 20},{"name": "TOV", "index": 21}, {"name": "PTS", "index": 23}]
     X = []
     Xlabels = []
     with open('playCareerRegSeasonStats.txt') as f:
@@ -56,15 +58,33 @@ def generateData():
                 Xlabels.append(name)
     return X, Xlabels
 
+def KMmeans_pred(n):
+    X, Xlabels= generateData()
+    kmeans = KMeans(n, random_state = 0)
+    labels = kmeans.fit(X).predict(X)
+    # print(labels)
+    # print(Xlabels)
+    # for i in range(len(labels)):
+    #     if(labels[i] == 5):
+    #         print(labels[i], Xlabels[i])
+    return labels, Xlabels
 
-X, Xlabels= generateData()
-kmeans = KMeans(5, random_state = 0)
-labels = kmeans.fit(X).predict(X)
-# print(labels)
-# print(Xlabels)
-for i in range(len(labels)):
-    print(labels[i], Xlabels[i])
+def GMM_pred(n):
+    X, Xlabels= generateData()
+    gmm = GaussianMixture(n_components=n).fit(X)
+    labels = gmm.predict(X)
+    pred = []
+    for i in range(len(labels)):
+        pred.append((labels[i], Xlabels[i]))
+    return pred
+               
 
+pred = GMM_pred(8)
+sorted_pred = sorted(pred, key=lambda x: x[0])
+for i in sorted_pred:
+    print(i)
+
+    
 
 # for line in content:
 #     print()
