@@ -79,7 +79,7 @@ def GMM_pred(n):
     return pred
                
 
-pred = GMM_pred(8)
+pred = GMM_pred(20)
 sorted_pred = sorted(pred, key=lambda x: x[0])
 for i in sorted_pred:
     print(i)
