@@ -22,6 +22,7 @@ def generateData():
     features = [{"name": "REB", "index": 17}, {
         "name": "AST", "index": 18}, {"name": "STL", "index": 19}, {"name": "PTS", "index": 23}]
     X = []
+    Xlabels = []
     with open('playCareerRegSeasonStats.txt') as f:
         content = f.readlines()
     for line in content:
@@ -39,7 +40,7 @@ def generateData():
                 if len(raw_stat_arr_for_player) != 0:
                     raw_stat_arr_for_player = raw_stat_arr_for_player[0]
 
-                print(name, raw_stat_arr_for_player)
+                # print(name, raw_stat_arr_for_player)
 
                 thisplayerFeaturesArr = []
                 for feature in features:
@@ -52,10 +53,18 @@ def generateData():
                 thisplayerFeaturesArr.append(FG_PCT)
                 thisplayerFeaturesArr.append(FG3_PCT)
                 X.append(thisplayerFeaturesArr)
-    return X
+                Xlabels.append(name)
+    return X, Xlabels
 
 
-X = generateData()
+X, Xlabels= generateData()
+kmeans = KMeans(5, random_state = 0)
+labels = kmeans.fit(X).predict(X)
+# print(labels)
+# print(Xlabels)
+for i in range(len(labels)):
+    print(labels[i], Xlabels[i])
+
 
 # for line in content:
 #     print()
