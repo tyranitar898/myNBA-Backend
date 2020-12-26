@@ -1,11 +1,13 @@
 # [myNBA-Backend](https://boiling-shelf-26276.herokuapp.com)
 
+
+
 MyNBA is a web app to that provides statistical analysis on the NBA using various machine learning models.
 
 ## Endpoints
 
 
-### GET boiling-shelf-26276.herokuapp.com/GMMPred/kclusters
+### GET /GMMPred/kclusters
 Generates labels based on Sklearn.GaussianMixture with `kclusters`.
 
 **Parameters**
