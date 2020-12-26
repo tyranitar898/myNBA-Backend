@@ -2,7 +2,7 @@
 
 
 
-MyNBA is a web app to that provides statistical analysis on the NBA using various machine learning models.
+myNBA-Backend is a web api that provides statistical analysis on the NBA using various machine learning models.
 
 ## Endpoints
 
