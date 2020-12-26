@@ -12,7 +12,8 @@ Generates labels based on Sklearn.GaussianMixture with `kclusters`.
 
 |          Name | Required |  Type   | Description                                                                                                                                                           |
 | -------------:|:--------:|:-------:| --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|     `kclusters` | required | int  | Number of clusters for GMM.                                                                     | 
+|     `kclusters` | required | int  | Number of clusters for GMM.     
+| 
 **Response**
 
 ```
