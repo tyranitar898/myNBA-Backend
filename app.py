@@ -17,16 +17,17 @@ active_players = players.get_inactive_players() + players.get_active_players()
 # active_players = players.get_active_players()
 
 
-
 def generatePlayerCarrerStat():
     f = open("stattt.txt", "a")
     for player in active_players:
         id = player['id']
 
         time.sleep(0.5)
-        player_info = playercareerstats.PlayerCareerStats(player_id=id, timeout=1000)
+        player_info = playercareerstats.PlayerCareerStats(
+            player_id=id, timeout=1000)
         player_reg_stat = player_info.career_totals_regular_season.get_dict()
-        player_stat = {"player": player, "reg_season_career_total" : player_reg_stat}
+        player_stat = {"player": player,
+                       "reg_season_career_total": player_reg_stat}
         print(player_reg_stat)
         f.write(str(player_stat) + "\n")
 
@@ -34,12 +35,12 @@ def generatePlayerCarrerStat():
 #{"name": "FG_PCT", "index": 8}, {"name": "FG3_PCT", "index": 11},
 
 
-def generateData():
+def generateData(fileName):
     features = [{"name": "REB", "index": 17}, {
-        "name": "AST", "index": 18}, {"name": "STL", "index": 19},{"name": "BLK", "index": 20},{"name": "TOV", "index": 21}, {"name": "PTS", "index": 23}]
+        "name": "AST", "index": 18}, {"name": "STL", "index": 19}, {"name": "BLK", "index": 20}, {"name": "TOV", "index": 21}, {"name": "PTS", "index": 23}]
     X = []
     Xlabels = []
-    with open('allPlayerCareerRegSeasonStats.txt') as f:
+    with open(fileName) as f:
         content = f.readlines()
     for line in content:
         dict = ast.literal_eval(line)
@@ -50,7 +51,7 @@ def generateData():
             player_minute = dict["reg_season_career_total"]['data'][0][5]
             player_gamesplayed = dict["reg_season_career_total"]['data'][0][3]
 
-            if player_minute!="None" and player_minute > 4000 and player_gamesplayed!="None":
+            if player_minute != "None" and player_minute > 4000 and player_gamesplayed != "None":
                 raw_stat_arr_for_player = dict["reg_season_career_total"]['data']
 
                 if len(raw_stat_arr_for_player) != 0:
@@ -72,9 +73,10 @@ def generateData():
                 Xlabels.append(name)
     return X, Xlabels
 
+
 def KMmeans_pred(n):
-    X, Xlabels= generateData()
-    kmeans = KMeans(n, random_state = 0)
+    X, Xlabels = generateData('activePlayerCareerRegSeasonStats.txt')
+    kmeans = KMeans(n, random_state=0)
     labels = kmeans.fit(X).predict(X)
     # print(labels)
     # print(Xlabels)
@@ -83,22 +85,24 @@ def KMmeans_pred(n):
     #         print(labels[i], Xlabels[i])
     return labels, Xlabels
 
+
 def GMM_pred(n):
-    X, Xlabels= generateData()
+    #  activePlayerCareerRegSeasonStats.txt  allPlayerCareerRegSeasonStats.txt
+    X, Xlabels = generateData('activePlayerCareerRegSeasonStats.txt')
     gmm = GaussianMixture(n_components=n).fit(X)
     labels = gmm.predict(X)
     pred = []
     for i in range(len(labels)):
         pred.append((labels[i], Xlabels[i]))
     return pred
-               
+
+
 # generatePlayerCarrerStat()
 pred = GMM_pred(20)
 sorted_pred = sorted(pred, key=lambda x: x[0])
 for i in sorted_pred:
     print(i)
 
-    
 
 # for line in content:
 #     print()
