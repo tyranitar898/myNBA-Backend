@@ -109,8 +109,12 @@ def GMM_pred(n, fileNameStr):
 app = Flask("MYNBA")
 
 @app.route('/', methods=['GET'])
-def get():
-    pred = GMM_pred(20, "activePlayerCareerRegSeasonStats.txt")
+def home():
+    return "Backend of MyNBA"
+
+@app.route('/GMMPred/<int:clusterk>', methods=['GET'])
+def get(clusterk):
+    pred = GMM_pred(clusterk, "activePlayerCareerRegSeasonStats.txt")
     sorted_pred = sorted(pred, key=lambda k: k["class"]) 
     return jsonify(sorted_pred)
     
