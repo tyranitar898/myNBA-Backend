@@ -11,7 +11,6 @@ from sklearn.cluster import KMeans
 from sklearn.mixture import GaussianMixture
 import numpy as np
 from flask import Flask, request, jsonify
-import matplotlib.pyplot as plt
 
 active_players = players.get_inactive_players() + players.get_active_players()
 # active_players = players.get_active_players()
