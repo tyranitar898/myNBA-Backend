@@ -1,22 +1,28 @@
 # [myNBA-Backend](https://boiling-shelf-26276.herokuapp.com)
 
-
-
 myNBA-Backend is a web api that provides statistical analysis on the NBA using various machine learning models.
 Data retreieved from [nba_api](https://github.com/swar/nba_api)
 
+## Packages Used
+
+- sklearn
+- nba_api
+- numpy
+- flask
+
 ## Endpoints
 
-
 ### GET /GMMPred/kclusters
-Generates labels based on Sklearn.GaussianMixture with `kclusters`.
+
+Generates labels based on Sklearn.Gaussian Mixture Modeling with `kclusters` clusters.
 
 **Parameters**
 
-|          Name | Required |  Type   | Description                                                                                                                                                           |
-| -------------:|:--------:|:-------:| --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|     `kclusters` | required | int  | Number of clusters for GMM.     
-| 
+|        Name | Required | Type | Description                 |
+| ----------: | :------: | :--: | --------------------------- |
+| `kclusters` | required | int  | Number of clusters for GMM. |
+
+|
 **Response**
 
 ```
@@ -28,6 +34,9 @@ Generates labels based on Sklearn.GaussianMixture with `kclusters`.
   {"class":3,"name":"Harrison Barnes"},...,{"class":3,"name":"Frank Kaminsky"}...
 ]
 ```
-___
 
+---
 
+## Authors
+
+- **Ryan Chang** - _Developer_ - [Personal Website](http://ryanchang.online/)
